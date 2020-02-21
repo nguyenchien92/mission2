@@ -16,6 +16,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.nguyen.mission2.R;
+import com.example.nguyen.mission2.models.MoveTo;
+import com.example.nguyen.mission2.network.BackStack;
 
 public class FragmentFour extends Fragment {
     private View rootView;
@@ -32,25 +34,11 @@ public class FragmentFour extends Fragment {
 
         tvTitle.setText(FragmentFour.class.getSimpleName());
 
-//        LinearLayout.LayoutParams params = new LinearLayout
-//                .LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT);
-
-
-//        tvTitle.setLayoutParams(params);
-//        tvTitle.setGravity(Gravity.CENTER);
-
-
-
-
         tvLeaveFragment.setText("Next Fragment");
         tvLeaveFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_main
-                        ,new FragmentDetailFour(),FragmentDetailFour.class.getSimpleName());
-                transaction.addToBackStack(FragmentDetailFour.class.getSimpleName());
-                transaction.commit();
+                MoveTo.nextFragment(getFragmentManager(),new FragmentDetailFour(),R.id.frame_main, BackStack.GO_BACK_STACK);
             }
         });
 

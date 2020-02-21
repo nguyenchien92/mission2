@@ -20,6 +20,7 @@
         android:id="@+id/tab"
         app:tabIndicatorHeight="0dp"
         app:tabRippleColor="@null"
+        app:tabGravity="fill"
         app:tabSelectedTextColor="@color/colorPrimary"
         app:tabIconTint="@color/tab_icon_selected_color"
         app:tabTextAppearance="@android:style/TextAppearance.Widget.TabWidget"/>

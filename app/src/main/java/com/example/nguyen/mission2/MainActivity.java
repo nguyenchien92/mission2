@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.fragment.app.ListFragment;
 
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -14,6 +15,8 @@ import com.example.nguyen.mission2.fragments.FragmentFour;
 import com.example.nguyen.mission2.fragments.FragmentOne;
 import com.example.nguyen.mission2.fragments.FragmentThree;
 import com.example.nguyen.mission2.fragments.FragmentTwo;
+import com.example.nguyen.mission2.models.MoveTo;
+import com.example.nguyen.mission2.network.BackStack;
 import com.example.nguyen.mission2.network.IBackPress;
 import com.google.android.material.tabs.TabLayout;
 
@@ -30,6 +33,16 @@ public class MainActivity extends AppCompatActivity {
 
         tabLayout = findViewById(R.id.tab);
 
+        setTabLayout();
+
+        //select tab default
+        selectTabDefault();
+
+//        setSizeIcon();
+
+    }
+
+    private void setTabLayout() {
         TabLayout.Tab tabHome = tabLayout.newTab();
         tabHome.setText("Tab 1").setIcon(R.drawable.ic_home_24);
 
@@ -42,16 +55,12 @@ public class MainActivity extends AppCompatActivity {
         TabLayout.Tab tabUser = tabLayout.newTab();
         tabUser.setText("Tab 4").setIcon(R.drawable.ic_user_24);
 
-        tabLayout.getTabAt(0).getIcon().getIntrinsicHeight();
+//        tabLayout.getTabAt(0).getIcon().getIntrinsicHeight();
 
         tabLayout.addTab(tabHome);
         tabLayout.addTab(tabNetWork);
         tabLayout.addTab(tabBookPhone);
         tabLayout.addTab(tabUser);
-
-        //select tab default
-
-        selectTabDefault();
 
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
@@ -88,7 +97,17 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
 
+    private void setSizeIcon() {
+        int countTab = tabLayout.getTabCount();
+
+        for(int i = 0; i < countTab ; i ++)
+        {
+//            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(35, 35);
+//            params.gravity = Gravity.CENTER;
+//            tabLayout.getChildAt(i).setLayoutParams(params);
+        }
     }
 
     private void selectTabDefault() {
@@ -96,9 +115,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void loadFragment(Fragment fragment) {
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_main, fragment, fragment.getClass().getSimpleName());
-        transaction.commit();
+        MoveTo.nextFragment(getSupportFragmentManager(),fragment,R.id.frame_main, BackStack.WITHOUT_BACK_STACK);
     }
 
     @Override
@@ -111,16 +128,15 @@ public class MainActivity extends AppCompatActivity {
 
         if (count > 0) {
 
-            if(current instanceof FragmentOne)
-            {
+            if (current instanceof FragmentOne) {
                 finish();
-            }else if (current instanceof FragmentTwo){
+            } else if (current instanceof FragmentTwo) {
                 finish();
-            }else if (current instanceof FragmentThree){
+            } else if (current instanceof FragmentThree) {
                 finish();
-            }else if (current instanceof FragmentFour){
+            } else if (current instanceof FragmentFour) {
                 finish();
-            }else {
+            } else {
                 super.onBackPressed();
             }
 
@@ -129,18 +145,3 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 }
-//        List<Fragment> mList = getSupportFragmentManager().getFragments();
-//        boolean check = false;
-//
-//        for (Fragment m : mList) {
-//            if (m != null && m instanceof IBackPress) {
-//                check = ((IBackPress) m).backPressed();
-//
-//                if (check)
-//                    break;
-//            }
-//        }
-//
-//        if (!check) {
-//            super.onBackPressed();
-//        }

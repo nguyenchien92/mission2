@@ -15,6 +15,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.example.nguyen.mission2.R;
+import com.example.nguyen.mission2.models.MoveTo;
+import com.example.nguyen.mission2.network.BackStack;
 
 public class FragmentDetailOne extends Fragment {
 
@@ -30,10 +32,6 @@ public class FragmentDetailOne extends Fragment {
         lnParent = rootView.findViewById(R.id.ln_parent);
         lnParent.setBackground(getResources().getDrawable(R.color.colorBlue));
 
-//        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT
-//                , LinearLayout.LayoutParams.MATCH_PARENT);
-//
-//        lnParent.setLayoutParams(params);
         lnParent.setGravity(Gravity.CENTER);
 
         tvTitle.setText(FragmentDetailOne.class.getSimpleName());
@@ -42,12 +40,7 @@ public class FragmentDetailOne extends Fragment {
         tvLeaveFragment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transaction = getFragmentManager().beginTransaction();
-                transaction.replace(R.id.frame_main
-                        , new FragmentDetailOne2()
-                        , FragmentDetailOne2.class.getSimpleName());
-                transaction.addToBackStack(FragmentDetailOne2.class.getSimpleName());
-                transaction.commit();
+                MoveTo.nextFragment(getFragmentManager(),new FragmentDetailOne2(),R.id.frame_main, BackStack.GO_BACK_STACK);
             }
         });
 
